@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FoodLink</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+/* main card */
+.container {
+    background: rgba(30, 41, 59, 0.95);
+    padding: 30px;
+    border-radius: 16px;
+    width: 360px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+/* title */
+h2 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* labels */
+.label {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+/* inputs */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #020617;
+    color: white;
+}
+
+/* buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.demo-btn {
+    background: #22c55e;
+    color: black;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* highlight */
+.highlight {
+    color: #3b82f6;
+}
+</style>
+
+<script>
+function toggleFields() {
+    let type = document.getElementById("type").value;
+    let expiryField = document.getElementById("expiryField");
+    let qtyLabel = document.getElementById("qtyLabel");
+
+    if (type === "surplus") {
+        expiryField.style.display = "block";
+        qtyLabel.innerText = "Meals Available";
+    } else {
+        expiryField.style.display = "none";
+        qtyLabel.innerText = "Meals Needed";
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Food<span class="highlight">Link</span></h2>
+<div class="subtitle">Bridging Hunger and Waste</div>
+
+<form action="/submit" method="post">
+
+<div class="label">Organization</div>
+<input type="text" name="name" placeholder="Restaurant / NGO" required>
+
+<div class="label">Type</div>
+<select name="type" id="type" onchange="toggleFields()">
+<option value="surplus">Surplus (Donor)</option>
+<option value="demand">Demand (NGO)</option>
+</select>
+
+<div class="label" id="qtyLabel">Meals Available</div>
+<input type="number" name="qty" placeholder="Enter quantity" required>
+
+<div id="expiryField">
+<div class="label">Expiry (hours)</div>
+<input type="number" name="expiry" placeholder="Food expiry time">
+</div>
+
+<div class="label">Location</div>
+<input type="text" name="location" placeholder="e.g. Bangalore">
+
+<button type="submit" class="submit-btn">Submit</button>
+
+</form>
+
+<!-- DEMO BUTTON -->
+<a href="/demo">
+<button class="demo-btn">Load Demo Data</button>
+</a>
+
+</div>
+
+<script>
+toggleFields();
+</script>
+
+</body>
+</html>

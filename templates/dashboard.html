@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<meta http-equiv="refresh" content="5">
+
+<style>
+body { background:#0f172a; color:white; padding:20px; }
+.card { background:#1e293b; padding:15px; margin-bottom:15px; }
+.item { background:#020617; padding:10px; margin-bottom:10px; }
+.bar { background:#334155; height:8px; }
+.fill { background:#22c55e; height:8px; }
+
+.assigned { color:#3b82f6; }
+.picked { color:#f97316; }
+.transit { color:#8b5cf6; }
+.done { color:#22c55e; }
+</style>
+
+<script>
+function navigateTo(location){
+navigator.geolocation.getCurrentPosition(function(pos){
+let url=`https://www.google.com/maps/dir/?api=1&origin=${pos.coords.latitude},${pos.coords.longitude}&destination=${location}`;
+window.open(url);
+});
+}
+</script>
+
+</head>
+
+<body>
+
+<h2>Dashboard</h2>
+
+<div class="card">Total Meals: {{ total }}</div>
+<div class="card">Prediction: {{ predicted }}</div>
+
+<div class="card">
+<h3>Smart Matching</h3>
+
+{% for m in matches %}
+<div class="item">
+
+{{ m.to }} ({{ m.location }})<br>
+{{ m.matched }}/{{ m.requested }}
+
+{% if m.remaining > 0 %}
+<br>{{ m.remaining }} still needed
+{% else %}
+<br>Done
+{% endif %}
+
+<div class="bar">
+<div class="fill" style="width:{{ (m.matched/m.requested)*100 }}%"></div>
+</div>
+
+<br>Status:
+{% if m.status == "Assigned" %}
+<span class="assigned">Assigned</span>
+{% elif m.status == "Picked Up" %}
+<span class="picked">Picked Up</span>
+{% elif m.status == "In Transit" %}
+<span class="transit">In Transit</span>
+{% else %}
+<span class="done">Delivered</span>
+{% endif %}
+
+<br>
+<button onclick="navigateTo('{{ m.location }}')">Route</button>
+
+</div>
+{% endfor %}
+</div>
+
+<div class="card">
+<h3>Surplus</h3>
+{% for s in surplus %}
+<div class="item">{{ s.name }} - {{ s.qty }}</div>
+{% endfor %}
+</div>
+
+<div class="card">
+<h3>Demand</h3>
+{% for d in demand %}
+<div class="item">{{ d.name }} needs {{ d.qty }}</div>
+{% endfor %}
+</div>
+
+<br>
+<a href="/">⬅ Back</a>
+
+</body>
+</html>
