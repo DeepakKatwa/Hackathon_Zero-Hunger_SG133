@@ -304,7 +304,8 @@ This will:
 
 | Contributor     | GitHub                                                         |
 |-----------------|----------------------------------------------------------------|
-| Deepak Katwa    | [@DeepakKatwa](https://github.com/DeepakKatwa)                |
+| Deepak Katwa    | [@DeepakKatwa](https://github.com/DeepakKatwa)                 |
+| Adarsh Pattar    | [@Adarsh Pattar](https://github.com/ADARSHPATTAR2004)         |
 
 ---
 
